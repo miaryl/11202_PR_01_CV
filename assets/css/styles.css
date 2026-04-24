@@ -1,8 +1,94 @@
 body {
   margin: 0;
-  font-family: sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark {
   background: #0f172a;
   color: white;
+}
+
+body.light {
+  background: #ffffff;
+  color: black;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+
+.switch {
+  width: 55px;
+  height: 28px;
+  background: #ccc;
+  border-radius: 999px;
+  padding: 3px;
+  transition: 0.3s;
+}
+
+.knob {
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+body.dark .switch {
+  background: #334155;
+}
+
+body.dark .knob {
+  transform: translateX(27px);
+}
+
+.lang-panel {
+  position: fixed;
+  top: 20px;
+  right: 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.lang-tab {
+  width: 80px;
+  height: 40px;
+  background: #1e293b;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px 0 0 8px;
+}
+
+.lang-menu {
+  width: 0;
+  overflow: hidden;
+  background: #0f172a;
+  transition: width 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.lang-panel.open .lang-menu {
+  width: 140px;
+}
+
+.lang-menu button {
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lang-menu button:hover {
+  background: rgba(255,255,255,0.1);
 }
 
 .container {

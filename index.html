@@ -1,31 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>CV Folder</title>
-  <link rel="stylesheet" href="./assets/css/styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CV Folder</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <script src="https://unpkg.com/i18next@23.12.2/dist/umd/i18next.min.js"></script>
+  </head>
+  <body>
+    <section class="top-controls">
+      <div class="theme-toggle" id="change-Theme">
+        <div class="switch">
+          <div class="knob"></div>
+        </div>
+      </div>
+      <div class="lang-panel" id="langPanel">
+        <div class="lang-tab" id="langTab">LANG</div>
 
-<div class="container">
-  <div class="folder" id="folder">
-    <div class="cover" id="cover">
-      <h1 id="name">Jane Doe</h1>
-      <p id="title">Product Designer</p>
+        <div class="lang-menu" id="langMenu">
+          <button data-lang="en">English</button>
+          <button data-lang="es">Spanish</button>
+          <button data-lang="ja">Japanese</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="folder" id="folder">
+        <div class="cover" id="cover">
+          <h1 id="name">Jane Doe</h1>
+          <p id="title">Product Designer</p>
+        </div>
+
+        <div class="content" id="content"></div>
+      </div>
+
+      <div class="tabs">
+        <button data-tab="experience">Experience</button>
+        <button data-tab="education">Education</button>
+        <button data-tab="languages">Languages</button>
+        <button data-tab="skills">Skills</button>
+        <button data-tab="projects">Projects</button>
+      </div>
     </div>
 
-    <div class="content" id="content"></div>
-  </div>
-
-  <div class="tabs">
-    <button data-tab="experience">Experience</button>
-    <button data-tab="education">Education</button>
-    <button data-tab="languages">Languages</button>
-    <button data-tab="skills">Skills</button>
-    <button data-tab="projects">Projects</button>
-  </div>
-</div>
-
-<script src="./assets/js/main.js"></script>
-</body>
+    <script src="./assets/js/main.js"></script>
+  </body>
 </html>
