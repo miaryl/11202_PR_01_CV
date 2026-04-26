@@ -1,6 +1,7 @@
 body {
   margin: 0;
   transition: background 0.3s, color 0.3s;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body.dark {
@@ -144,5 +145,31 @@ body.dark .knob {
   border: none;
   cursor: pointer;
   background: #334155;
+  color: white;
+}
+
+
+button[data-tab="experience"] {
+  background: #ff6b6b;
+  color: white;
+}
+
+button[data-tab="education"] {
+  background: #4dabf7;
+  color: white;
+}
+
+button[data-tab="languages"] {
+  background: #51cf66;
+  color: white;
+}
+
+button[data-tab="skills"] {
+  background: #ffd43b;
+  color: black;
+}
+
+button[data-tab="projects"] {
+  background: #845ef7;
   color: white;
 }
