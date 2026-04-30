@@ -96,16 +96,35 @@ document.querySelectorAll(".tabs button").forEach(btn => {
 
 function renderContent(tab) {
   const items = data[tab];
-
   let html = `<h2>${tab.toUpperCase()}</h2>`;
 
-  items.forEach(item => {
-    html += `<div class="card">
-      <strong>${item.title}</strong><br/>
-      ${item.company || ""}<br/>
-      ${item.date || ""}
-    </div>`;
-  });
+  if (tab === "skills") {
+    items.forEach(group => {
+      html += `<div class="card">
+        <strong>${group.category}</strong><br/>
+        ${group.items.join(", ")}
+      </div>`;
+    });
+  }
+
+  else if (tab === "languages") {
+    items.forEach(lang => {
+      html += `<div class="card">
+        <strong>${lang.title}</strong><br/>
+        ${lang.level}
+      </div>`;
+    });
+  }
+
+  else {
+    items.forEach(item => {
+      html += `<div class="card">
+        <strong>${item.title}</strong><br/>
+        ${item.company || ""}<br/>
+        ${item.date || ""}
+      </div>`;
+    });
+  }
 
   content.innerHTML = html;
 }

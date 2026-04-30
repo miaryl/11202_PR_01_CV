@@ -1,48 +1,265 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="default">
   <head>
     <meta charset="UTF-8" />
     <title>CV Folder</title>
-    <link rel="stylesheet" href="./assets/css/styles.css" />
-    <script src="https://unpkg.com/i18next@23.12.2/dist/umd/i18next.min.js"></script>
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}" />
+
+    <style>
+      :root {
+        --bg: #0b0b0f;
+        --text: #e6e6e6;
+        --card: rgba(255, 255, 255, 0.03);
+        --border: rgba(123, 63, 228, 0.2);
+        --accent: #7b3fe4;
+        --accent-2: #a855f7;
+      }
+
+      html,
+      body {
+        background: var(--bg);
+        color: var(--text);
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      html[data-theme="default"] {
+        --bg: #0b0b0f;
+        --text: #e6e6e6;
+        --card: rgba(255, 255, 255, 0.03);
+        --border: rgba(123, 63, 228, 0.2);
+        --accent: #7b3fe4;
+        --accent-2: #a855f7;
+      }
+
+      html[data-theme="pink"] {
+        --bg: #fff7fb;
+        --text: #2a2a2a;
+        --card: rgba(255, 255, 255, 0.8);
+        --border: rgba(255, 182, 193, 0.4);
+        --accent: #ff4fa3;
+        --accent-2: #d4af37; /* gold */
+      }
+
+      html[data-theme="metal"] {
+        --bg: #0a0a0a;
+        --text: #d1d1d1;
+        --card: rgba(20, 20, 20, 0.8);
+        --border: rgba(255, 255, 255, 0.1);
+        --accent: #ff2e2e;
+        --accent-2: #888;
+      }
+
+      .theme-switcher {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .theme-switcher button {
+        background: var(--card);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 6px 10px;
+        cursor: pointer;
+        border-radius: 6px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      .title {
+        color: var(--accent-2);
+      }
+
+      .skill-tag {
+        background: color-mix(in srgb, var(--accent) 20%, transparent);
+      }
+
+      .app {
+        display: flex;
+        justify-content: center;
+        padding: 40px 16px;
+      }
+      .wrapper {
+        width: 100%;
+        max-width: 850px;
+      }
+
+      .header {
+        text-align: center;
+      }
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #7b3fe4, #a855f7);
+        margin: auto;
+      }
+
+      .title {
+        color: var(--accent-2);
+        font-size: 20px;
+      }
+
+      .meta {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        font-size: 14px;
+        color: #a0a0b0;
+      }
+
+      .section-title {
+        margin-bottom: 12px;
+        font-size: 18px;
+      }
+      .timeline {
+        border-left: 2px solid rgba(123, 63, 228, 0.3);
+        padding-left: 16px;
+      }
+      .item {
+        margin-bottom: 20px;
+      }
+
+      .skill-tag {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--accent) 20%, transparent);
+        margin: 4px;
+        font-size: 13px;
+        color: var(--text);
+      }
+    </style>
   </head>
+
   <body>
-    <section class="top-controls">
-      <div class="theme-toggle" id="change-Theme">
-        <div class="switch">
-          <div class="knob"></div>
-        </div>
-      </div>
-      <!-- <div class="lang-panel" id="langPanel">
-        <div class="lang-tab" id="langTab">LANG</div>
-
-        <div class="lang-menu" id="langMenu">
-          <button data-lang="en">English</button>
-          <button data-lang="es">Spanish</button>
-          <button data-lang="ja">Japanese</button>
-        </div>
-      </div> -->
-    </section>
-
-    <div class="container">
-      <div class="folder" id="folder">
-        <div class="cover" id="cover">
-          <h1 id="name">Jane Doe</h1>
-          <p id="title">Product Designer</p>
-        </div>
-
-        <div class="content" id="content"></div>
-      </div>
-
-      <div class="tabs">
-        <button data-tab="experience">Experience</button>
-        <button data-tab="education">Education</button>
-        <button data-tab="languages">Languages</button>
-        <button data-tab="skills">Skills</button>
-        <button data-tab="projects">Projects</button>
-      </div>
+    <div class="theme-switcher">
+      <button data-theme="default">Base</button>
+      <button data-theme="pink">Blossam</button>
+      <button data-theme="metal">YEAH</button>
     </div>
 
-    <script src="./assets/js/main.js" defer></script>
+    <main class="app">
+      <div class="wrapper">
+        <!-- personal base data, name, profession, country etc...   -->
+        <section class="card header">
+          <div class="avatar"></div>
+
+          <h1>
+            {{ cv.personal_info.nombre }} {{ cv.personal_info.apellidos }}
+          </h1>
+          <div class="title">{{ cv.professional_profile.profesion }}</div>
+
+          <div class="meta">
+            <span>{{ cv.personal_info.email_profesional1 }}</span>
+            <span>{{ cv.personal_info.telefono1 }}</span>
+            <span>{{ cv.personal_info.ciudad }}</span>
+          </div>
+        </section>
+
+        <!-- about - text -->
+        <section class="card">
+          <div class="section-title">About</div>
+          <p>{{ cv.professional_profile.resumen }}</p>
+        </section>
+
+        <!-- work experience  -->
+        <section class="card">
+          <div class="section-title">Experience</div>
+
+          <div class="timeline">
+            {% for job in cv.work_experience %}
+            <div class="item">
+              <h3>{{ job.puesto }}</h3>
+              <div>{{ job.company }} • {{ job.ubicacion }}</div>
+
+              <small>
+                {{ job.fecha_inicio|date:"Y" }} - {% if job.trabajo_actual %}
+                Present {% else %} {{ job.fecha_fin|date:"Y" }} {% endif %}
+              </small>
+
+              <p>{{ job.descripcion }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+
+        <!-- education -->
+        <section class="card">
+          <div class="section-title">Education</div>
+
+          {% for e in cv.education %}
+          <div class="item">
+            <h3>{{ e.titulo }}</h3>
+            <div>{{ e.centro }} • {{ e.ubicacion }}</div>
+            <small>
+              {{ e.fecha_inicio|date:"Y" }} - {{ e.fecha_fin|date:"Y" }}
+            </small>
+          </div>
+          {% endfor %}
+        </section>
+
+        <!-- skill -->
+        <section class="card">
+          <div class="section-title">Skills</div>
+
+          {% for s in cv.skills %}
+          <span class="skill-tag">{{ s.nombre }}</span>
+          {% endfor %}
+        </section>
+
+        <!-- personal project -->
+        <section class="card">
+          <div class="section-title">Projects</div>
+
+          {% for p in cv.projects %}
+          <div class="item">
+            <h3>{{ p.nombre }}</h3>
+            <p>{{ p.descripcion }}</p>
+          </div>
+          {% endfor %}
+        </section>
+
+        <!-- contact -->
+        <section class="card">
+          <div class="section-title">Contact</div>
+          <p>Let's connect</p>
+
+          <a href="{{ cv.social_network.linkedin }}" target="_blank"
+            >LinkedIn</a
+          >
+          |
+          <a href="{{ cv.social_network.github }}" target="_blank">GitHub</a>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const buttons = document.querySelectorAll("[data-theme]");
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const theme = btn.dataset.theme;
+          document.documentElement.setAttribute("data-theme", theme);
+          localStorage.setItem("theme", theme);
+        });
+      });
+
+      const saved = localStorage.getItem("theme") || "default";
+      if (saved) {
+        document.documentElement.setAttribute("data-theme", saved);
+      }
+    </script>
   </body>
 </html>
